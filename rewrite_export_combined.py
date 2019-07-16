@@ -26,7 +26,9 @@ replace_keys = {
     'county_name': 'name',
     'slice':'fcc',
     'dl':'ml_dl',
-    'ul':'ml_ul'
+    'ul':'ml_ul',
+    'geoid': 'geo_id',
+    'provider_count': 'reg_provider_count',
 }
 
 def rewrite_row(json_row):
@@ -57,6 +59,11 @@ if 'WKT' in fields:
     fields.remove('WKT') # remove, then append to ensure WKT is last column.
     fields.sort()
     fields.append('WKT')
+
+# copied from the working county layer
+expected_fields = ['ml_dl_count_tests_dec_2014', 'ml_dl_count_tests_jun_2015', 'ml_dl_count_tests_dec_2015', 'ml_dl_count_tests_jun_2016', 'ml_dl_count_tests_dec_2016', 'ml_dl_count_tests_jun_2017', 'ml_dl_count_tests_dec_2017', 'ml_dl_count_tests_jun_2018', 'ml_dl_count_tests_dec_2018', 'ml_upload_Mbps_dec_2014', 'ml_upload_Mbps_jun_2015', 'ml_upload_Mbps_dec_2015', 'ml_upload_Mbps_jun_2016', 'geo_id', 'ml_upload_Mbps_dec_2016', 'ml_upload_Mbps_jun_2017', 'ml_ul_count_ips_dec_2014', 'ml_ul_count_ips_jun_2015', 'ml_upload_Mbps_dec_2017', 'ml_upload_Mbps_jun_2018', 'ml_ul_count_ips_dec_2015', 'ml_ul_count_ips_jun_2016', 'ml_upload_Mbps_dec_2018', 'ml_ul_count_ips_dec_2016', 'ml_ul_count_ips_jun_2017', 'ml_ul_count_ips_dec_2017', 'ml_ul_count_ips_jun_2018', 'ml_ul_count_ips_dec_2018', 'ml_download_Mbps_dec_2014', 'ml_download_Mbps_jun_2015', 'ml_download_Mbps_dec_2015', 'ml_download_Mbps_jun_2016', 'ml_download_Mbps_dec_2016', 'ml_download_Mbps_jun_2017', 'ml_download_Mbps_dec_2017', 'ml_download_Mbps_jun_2018', 'ml_download_Mbps_dec_2018', 'fcc_advertised_down_dec_2014', 'fcc_advertised_down_jun_2015', 'fcc_advertised_down_dec_2015', 'fcc_advertised_down_jun_2016', 'fcc_advertised_down_dec_2016', 'fcc_advertised_down_jun_2017', 'ml_ul_count_tests_dec_2014', 'ml_ul_count_tests_jun_2015', 'fcc_advertised_down_dec_2017', 'ml_ul_count_tests_dec_2015', 'ml_ul_count_tests_jun_2016', 'ml_ul_count_tests_dec_2016', 'ml_ul_count_tests_jun_2017', 'ml_ul_count_tests_dec_2017', 'ml_ul_count_tests_jun_2018', 'fcc_reg_provider_count_dec_2014', 'fcc_reg_provider_count_jun_2015', 'ml_dl_count_ips_dec_2014', 'ml_dl_count_ips_jun_2015', 'ml_min_rtt_dec_2014', 'ml_min_rtt_jun_2015', 'ml_ul_count_tests_dec_2018', 'fcc_reg_provider_count_dec_2015', 'fcc_reg_provider_count_jun_2016', 'fcc_advertised_up_dec_2014', 'fcc_advertised_up_jun_2015', 'ml_dl_count_ips_dec_2015', 'ml_dl_count_ips_jun_2016', 'ml_min_rtt_dec_2015', 'ml_min_rtt_jun_2016', 'fcc_reg_provider_count_dec_2016', 'fcc_reg_provider_count_jun_2017', 'fcc_advertised_up_dec_2015', 'fcc_advertised_up_jun_2016', 'ml_dl_count_ips_dec_2016', 'ml_dl_count_ips_jun_2017', 'ml_min_rtt_dec_2016', 'ml_min_rtt_jun_2017', 'fcc_reg_provider_count_dec_2017', 'fcc_advertised_up_dec_2016', 'fcc_advertised_up_jun_2017', 'ml_dl_count_ips_dec_2017', 'ml_dl_count_ips_jun_2018', 'ml_min_rtt_dec_2017', 'ml_min_rtt_jun_2018', 'fcc_advertised_up_dec_2017', 'ml_dl_count_ips_dec_2018', 'ml_min_rtt_dec_2018']
+assert 0 == len(set(expected_fields) - set(fields)), \
+    f"Required fields missing: {set(expected_fields) - set(fields)}"
 
 with open(output_file, 'w') as output:
     writer = csv.DictWriter(output, fields)
