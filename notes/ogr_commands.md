@@ -78,3 +78,7 @@ ogr2ogr -f GeoJSON /dev/stdout -oo KEEP_GEOM_COLUMNS=no USBB_05282019_state_sena
 ## UPLOADING to MAPBOX
 
 mapbox upload --name 'MLab and FCC County' newamerica.usbb_county mbtiles/usbb_county.mbtiles
+
+## Joining mbtiles files
+
+tile-join -o usbb-county-final.mbtiles usbb_county.mbtiles oglala_county.mbtiles

@@ -20,4 +20,13 @@ If you need to fix something, e.g. missing data..
 6. Join the mbtiles to the original mbtiles
 7. Upload replacement mbtiles to Mapbox.
 
+If you need to add a new data period
 
+1. Update the query for new time period
+2. Export JSON
+3. Convert JSON to CSV
+4. Re-code the CSV schema to know what the data types are (xsv commands in '/notes/ogr_commands.md')
+5. Run ogr2ogr > tippecanoe command to create mbtiles (ogr2ogr commands in 'notes/ogr_commands.md')
+6. Join the mbtiles to the original mbtiles
+7. Upload replacement mbtiles to Mapbox.
+8. Check if there need to be any changes to the HTML for the map
